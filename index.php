@@ -1,40 +1,15 @@
 <?php
-
-require_once('function.php');
-
-
-class Task
-{
-    public $description;
-
-    public $completed = false;
-
-    public function __construct($description)
-    {
-        $this->description = $description;
-    }
-
-    public function complete()
-    {
-        $this->completed = true;
-    }
-
-    public function isComplete()
-    {
-        return $this->completed;
-    }
+ 
+try {
+    $pdo = new PDO('mysql:host=localhost; dbname:mytod;', 'root', '0791758801');
+} catch (PDOException $e) {
+    die('coul not connect');
 }
 
-$tasks = [
-    new Task("Play fifa"),
-    new Task("Code laravel"),
-    new Task("Code syntax"),
-];
+$statement = $pdo->prepare('select * from mytodo');
 
-// $tasks[0]->complete();
-// $task->complete();
+$statement->execute();
 
-// var_dump($tasks);
-dumper($tasks);
+var_dump($statement);
 
 require 'index.view.php';
